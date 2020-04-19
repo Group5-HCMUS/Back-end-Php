@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\User;
-use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use Dusterio\LumenPassport\LumenPassport;
 use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        LumenPassport::allowMultipleTokens();
     }
 
     /**

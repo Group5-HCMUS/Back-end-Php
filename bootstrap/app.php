@@ -61,6 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('logging');
+$app->configure('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -77,9 +78,9 @@ $app->configure('logging');
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -93,8 +94,10 @@ $app->configure('logging');
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Laravel\Passport\PassportServiceProvider::class);
+$app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 if($app->environment('local')) {
     $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
@@ -113,6 +116,26 @@ if($app->environment('local')) {
 
 Route::group(['namespace' => 'App\Http\Controllers'], function() {
     require __DIR__.'/../routes/web.php';
+
+    Route::group(['namespace'=>'Api', 'prefix' => 'api'], function() {
+        Route::group(['namespace'=>'Client', 'prefix' => 'client', 'middleware' => ['auth']], function() {
+            Route::group(['namespace'=>'V1', 'prefix' => 'v1'], function() {
+                require __DIR__.'/../routes/api/client/v1.php';
+            });
+        });
+
+        Route::group(['namespace'=>'Admin', 'prefix' => 'admin', 'middleware' => ['auth:admin']], function() {
+            Route::group(['namespace'=>'V1', 'prefix' => 'v1'], function() {
+                require __DIR__.'/../routes/api/admin/v1.php';
+            });
+        });
+
+        Route::group(['namespace'=>'Index', 'prefix' => ''], function() {
+            Route::group(['namespace'=>'V1', 'prefix' => 'v1'], function() {
+                require __DIR__.'/../routes/api/index/v1.php';
+            });
+        });
+    });
 });
 
 return $app;
