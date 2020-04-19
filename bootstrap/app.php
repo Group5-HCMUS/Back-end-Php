@@ -62,6 +62,7 @@ $app->singleton(
 $app->configure('app');
 $app->configure('logging');
 $app->configure('auth');
+$app->configure('cors');
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,7 @@ $app->configure('auth');
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'cors' => Fruitcake\Cors\HandleCors::class,
 ]);
 
 /*
@@ -98,6 +100,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 if($app->environment('local')) {
     $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
@@ -118,7 +121,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
     require __DIR__.'/../routes/web.php';
 
     Route::group(['namespace'=>'Api', 'prefix' => 'api'], function() {
-        Route::group(['namespace'=>'Client', 'prefix' => 'client', 'middleware' => ['auth']], function() {
+        Route::group(['namespace'=>'Client', 'prefix' => 'client', 'middleware' => ['auth:api']], function() {
             Route::group(['namespace'=>'V1', 'prefix' => 'v1'], function() {
                 require __DIR__.'/../routes/api/client/v1.php';
             });
@@ -137,5 +140,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         });
     });
 });
+
+Dusterio\LumenPassport\LumenPassport::routes($app->router, [
+    'middleware' => [
+        Fruitcake\Cors\HandleCors::class,
+    ],
+]);
 
 return $app;
