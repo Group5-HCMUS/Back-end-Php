@@ -10,4 +10,9 @@ class MeController extends Controller
     {
         return $this->user();
     }
+
+    public function logout()
+    {
+        $this->user()->logout();
+    }
 }
