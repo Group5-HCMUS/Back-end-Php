@@ -8,3 +8,7 @@ Route::group(['prefix' => 'me'], function () {
 Route::group(['prefix' => 'child', 'namespace' => 'Child'], function () {
     Route::post('/', 'IndexController@create');
 });
+
+Route::group(['prefix' => 'parent', 'namespace' => 'Parent'], function () {
+    Route::post('/', 'IndexController@create');
+});
