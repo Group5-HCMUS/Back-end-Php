@@ -36,4 +36,20 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         $this->token()->revoke();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function parent()
+    {
+        return $this->hasOne(ParentModel::class, 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function child()
+    {
+        return $this->hasOne(Child::class, 'user_id');
+    }
 }
