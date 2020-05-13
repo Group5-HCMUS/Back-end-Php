@@ -63,6 +63,7 @@ $app->configure('app');
 $app->configure('logging');
 $app->configure('auth');
 $app->configure('cors');
+$app->configure('scout');
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
+$app->register(TeamTNT\Scout\TNTSearchScoutServiceProvider::class);
 
 if($app->environment('local')) {
     $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

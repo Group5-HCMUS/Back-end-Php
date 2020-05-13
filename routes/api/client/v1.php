@@ -11,4 +11,13 @@ Route::group(['prefix' => 'child', 'namespace' => 'Child'], function () {
 
 Route::group(['prefix' => 'parent', 'namespace' => 'Parent'], function () {
     Route::post('/', 'IndexController@create');
+
+    Route::group(['prefix' => 'child'], function () {
+       Route::post('/{id}/connect', 'ChildController@connect');
+    });
+});
+
+Route::group(['prefix' => 'children'], function () {
+    Route::get('/', 'ChildController@index');
+    Route::get('/{id}', 'ChildController@get');
 });

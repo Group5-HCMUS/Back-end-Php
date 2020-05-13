@@ -23,4 +23,9 @@ class IndexController extends Controller
 
         return $parent;
     }
+
+    public function addChild()
+    {
+
+    }
 }
