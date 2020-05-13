@@ -20,11 +20,7 @@ class ChildController extends Controller
 
         $search = $this->request()->get('q');
 
-        $query = Child::query()
-            ->withCount([
-                'availablePockets',
-                'pockets',
-            ]);
+        $query = Child::query();
 
         if ($search) {
             $searchResultIds = Child::search($search)->keys()->toArray();
