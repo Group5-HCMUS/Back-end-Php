@@ -21,9 +21,8 @@ class ChildController extends Controller
         $search = $this->request()->get('q');
 
         $query = Child::query()
-            ->withCount([
-                'availablePockets',
-                'pockets',
+            ->with([
+                'user',
             ]);
 
         if ($search) {
@@ -44,6 +43,9 @@ class ChildController extends Controller
     public function get($id)
     {
         return Child::whereId($id)
+            ->with([
+                'user',
+            ])
             ->firstOrFail();
     }
 }
