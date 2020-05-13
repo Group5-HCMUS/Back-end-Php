@@ -20,7 +20,10 @@ class ChildController extends Controller
 
         $search = $this->request()->get('q');
 
-        $query = Child::query();
+        $query = Child::query()
+            ->with([
+                'user',
+            ]);
 
         if ($search) {
             $searchResultIds = Child::search($search)->keys()->toArray();
@@ -40,6 +43,9 @@ class ChildController extends Controller
     public function get($id)
     {
         return Child::whereId($id)
+            ->with([
+                'user',
+            ])
             ->firstOrFail();
     }
 }
