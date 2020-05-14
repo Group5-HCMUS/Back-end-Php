@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Client\V1\Parent;
 
 use App\Http\Controllers\Api\Client\Controller;
+use App\Models\Child;
 use App\Models\ParentChildren;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,6 +13,10 @@ class ChildController extends Controller
     {
         if (!$this->user()->parent) {
             abort(Response::HTTP_FORBIDDEN, 'Parent not found');
+        }
+
+        if (Child::whereId($id)->doesntExist()) {
+            abort(Response::HTTP_BAD_REQUEST, 'Child does not exists');
         }
 
         $parentChildren = ParentChildren::whereChildId($id)
