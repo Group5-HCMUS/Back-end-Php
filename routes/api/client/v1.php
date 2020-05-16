@@ -14,6 +14,7 @@ Route::group(['prefix' => 'parent', 'namespace' => 'Parent'], function () {
 
     Route::group(['prefix' => 'child'], function () {
         Route::get('/', 'ChildController@index');
+        Route::get('/{id}', 'ChildController@get');
         Route::post('/{id}/connect', 'ChildController@connect');
     });
 });

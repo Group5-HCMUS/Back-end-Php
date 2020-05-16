@@ -62,4 +62,19 @@ class ChildController extends Controller
             ->json($query->forPage($page, $limit)->get())
             ->header('X-Total-Count', $totalCount);
     }
+
+    public function get($id)
+    {
+        if (!$this->user()->parent) {
+            abort(Response::HTTP_FORBIDDEN, 'Parent not found');
+        }
+
+        return Child::whereHas('parent', function ($q) {
+            $q->whereParentId($this->user()->parent->id);
+        })
+            ->with([
+                'user',
+            ])
+            ->get();
+    }
 }
