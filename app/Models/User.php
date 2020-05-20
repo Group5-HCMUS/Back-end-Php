@@ -39,6 +39,17 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
+    /**
+     * Route notifications for the FCM channel.
+     *
+     * @param  \Illuminate\Notifications\Notification $notification
+     * @return string[]
+     */
+    public function routeNotificationForFcm($notification)
+    {
+        return $this->fcmTokens->pluck('token')->toArray();
+    }
+
     public function logout()
     {
         $this->token()->revoke();
@@ -58,5 +69,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function child()
     {
         return $this->hasOne(Child::class, 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fcmTokens()
+    {
+        return $this->hasMany(FCMToken::class, 'user_id');
     }
 }
