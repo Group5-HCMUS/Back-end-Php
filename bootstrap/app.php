@@ -106,6 +106,7 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 $app->register(Laravel\Scout\ScoutServiceProvider::class);
 $app->register(TeamTNT\Scout\TNTSearchScoutServiceProvider::class);
+$app->register(Benwilkins\FCM\FcmNotificationServiceProvider::class);
 
 if($app->environment('local')) {
     $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

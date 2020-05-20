@@ -9,6 +9,7 @@
         "php": "^7.2.5",
         "barryvdh/laravel-cors": "^1.0",
         "bensampo/laravel-enum": "^1.37",
+        "benwilkins/laravel-fcm-notification": "^4.0",
         "dusterio/lumen-passport": "^0.2.18",
         "laravel/lumen-framework": "^7.0",
         "teamtnt/laravel-scout-tntsearch-driver": "^8.3"
