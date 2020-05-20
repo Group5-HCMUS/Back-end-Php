@@ -2,6 +2,7 @@
 
 Route::group(['prefix' => 'me'], function () {
     Route::get('/', 'MeController@profile');
+    Route::put('/', 'MeController@update');
     Route::post('/logout' ,'MeController@logout');
 });
 

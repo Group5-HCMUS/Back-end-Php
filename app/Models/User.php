@@ -14,6 +14,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $table = 'users';
 
+    protected $casts = [
+        'birth_date' => 'date',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +25,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $fillable = [
         'full_name',
+        'gender',
+        'birth_date',
+        'phone_number'
     ];
 
     /**
