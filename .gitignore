@@ -83,7 +83,6 @@ Temporary Items
 .apdisk
 
 # Laravel scout
-storage/tntsearch/*.index
 
 # Google API Client
 
