@@ -66,6 +66,7 @@ $app->configure('logging');
 $app->configure('auth');
 $app->configure('cors');
 $app->configure('scout');
+$app->configure('services');
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +108,7 @@ $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 $app->register(Laravel\Scout\ScoutServiceProvider::class);
 $app->register(TeamTNT\Scout\TNTSearchScoutServiceProvider::class);
 $app->register(Benwilkins\FCM\FcmNotificationServiceProvider::class);
+$app->register(Illuminate\Notifications\NotificationServiceProvider::class);
 
 if($app->environment('local')) {
     $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
