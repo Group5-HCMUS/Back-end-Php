@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Client\Controller;
 use App\Models\Chat;
 use App\Models\User;
 use App\Notifications\ChatMessageSent;
+use http\Message;
 use Illuminate\Http\Response;
 
 class ChatController extends Controller
@@ -40,5 +41,33 @@ class ChatController extends Controller
 
         return response()
             ->json($status);
+    }
+
+    public function messages()
+    {
+        $this->validate($this->request(), [
+            'limit' => 'integer|min:1|max:50',
+            'receiver_id' => 'exists:users,id',
+        ]);
+
+        $page = $this->request()->get('page', 1);
+        $limit = $this->request()->get('limit', 10);
+        $sort = $this->request()->get('sort', 'id');
+        $dir = $this->request()->get('dir', 'asc');
+
+        $receiverId = $this->request()->get('receiver_id');
+
+        $query = Chat::query()
+            ->orderBy($sort, $dir);
+
+        if ($receiverId) {
+            $query->whereReceiverId($receiverId);
+        }
+
+        $totalCount = $query->count();
+
+        return response()
+            ->json($query->forPage($page, $limit)->get())
+            ->header('X-Total-Count', $totalCount);
     }
 }

@@ -31,5 +31,6 @@ Route::group(['prefix' => 'fcm'], function() {
 });
 
 Route::group(['prefix' => 'chats'], function () {
+    Route::get('/messages', 'ChatController@messages');
     Route::post('/message/send', 'ChatController@sendMessage');
 });
