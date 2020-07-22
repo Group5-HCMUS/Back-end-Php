@@ -11,5 +11,6 @@ class ScoutImportAllCommand extends Command
     public function handle()
     {
         $this->call('scout:import', ['model' => 'App\\Models\\Child']);
+        $this->call('scout:import', ['model' => 'App\\Models\\Chat']);
     }
 }
