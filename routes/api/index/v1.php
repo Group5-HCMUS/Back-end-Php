@@ -7,3 +7,7 @@ Route::group(['prefix' => 'register'], function () {
 Route::group(['prefix' => 'notify'], function () {
     Route::post('/', 'NotificationController@send');
 });
+
+Route::group(['prefix' => 'parents'], function () {
+    Route::get('/', 'ParentController@getByChild');
+});
