@@ -29,7 +29,3 @@ Route::group(['prefix' => 'fcm'], function() {
     Route::post('/token/register', 'FCMController@register');
     Route::post('/token/unregister', 'FCMController@unregister');
 });
-
-Route::group(['prefix' => 'notify'], function () {
-    Route::post('/', 'NotificationController@send');
-});
