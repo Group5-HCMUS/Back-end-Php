@@ -36,7 +36,9 @@ npm-debug.log
 
 # Laravel 4 specific
 bootstrap/compiled.php
-app/storage/
+app/storage/app
+app/storage/framework
+app/storage/logs
 
 # Laravel 5 & Lumen specific
 public/storage
@@ -81,7 +83,6 @@ Temporary Items
 .apdisk
 
 # Laravel scout
-storage/tntsearch/*.index
 
 # Google API Client
 
